@@ -36,15 +36,31 @@ public class Revista {
 		return edicao;
 	}
 
-	public void adicionarEdicao(int nr, Date dt, int trg, int qv, Revista revista) {
-		edicao.add(new Edicao (nr, trg, qv, dt, revista));
+	public void adicionarEdicao(int nr, Date dt, int trg, int qv) {
+		edicao.add(new Edicao (nr, trg, qv, dt));
 	}
 	
 	public void removerEdicao(Edicao edicao) {
 		this.edicao.remove(edicao);
 	}
 	
-	public void acumularReciclagem(int qntdeReciclada) {
-		reciclagemProduzida += qntdeReciclada;
+	public String reciclarEdicao(int nrEdicao) {
+		for (Edicao edicao: edicao) {
+			if (edicao.getNumero() == nrEdicao) {
+				int reciclados = edicao.obterQtdeReciclaveis();
+				if (reciclados == 0) {
+					return "Nao houve exemplares para reciclar.";
+				} else if (edicao.isReciclou()) {
+					return "Edicao ja reciclada.";
+				} else {
+					reciclagemProduzida += reciclados;
+					edicao.reciclarExemplares();
+					return "Reciclagem Realizada.";
+				}
+			} 
+		}
+		
+		return "Edicao nao Encontrada.";
 	}
+		
 }

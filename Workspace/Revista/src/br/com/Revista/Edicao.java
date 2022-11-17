@@ -5,14 +5,12 @@ public class Edicao {
 	private int numero, tiragem, qtdeVendida;
 	private Date data;
 	private boolean reciclou;
-	private Revista revista;
 
-	public Edicao(int numero, int tiragem, int qtdeVendida, Date data, Revista revista) {
+	public Edicao(int numero, int tiragem, int qtdeVendida, Date data) {
 		this.numero = numero;
 		this.tiragem = tiragem;
 		this.qtdeVendida = qtdeVendida;
 		this.data = data;
-		this.revista = revista;
 		reciclou = false;
 	}
 
@@ -38,15 +36,12 @@ public class Edicao {
 		return data;
 	}
 	
-	public boolean reciclarExemplares() {
-		if (reciclou == true) {
-			return false;
-		}
-		
-		int qtdeNaoVendida = tiragem - qtdeVendida;
-		revista.acumularReciclagem(qtdeNaoVendida);
+	public void reciclarExemplares() {
 		reciclou = true;
-		return true;
 	}
+	public int obterQtdeReciclaveis() {
+		return tiragem - qtdeVendida;
+	}
+	
 	
 }

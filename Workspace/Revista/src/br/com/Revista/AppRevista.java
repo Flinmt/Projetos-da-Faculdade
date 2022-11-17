@@ -1,29 +1,33 @@
 package br.com.Revista;
 import java.util.Date;
 public class AppRevista {
-
+	
+	static Revista revista;
 	public static void main(String[] args) {
 		Date data = new Date();
+		revista = new Revista(01, "Revistinha Show");
 		
-		Revista revista = new Revista(01, "Maiorais");
-		revista.adicionarEdicao(01, data, 150, 50, revista);
-		revista.adicionarEdicao(02, data, 240, 60, revista);
-		revista.adicionarEdicao(03, data, 450, 150, revista);
+		revista.adicionarEdicao(52, data, 1000, 800);
+		revista.adicionarEdicao(53, data, 900, 900);
+		revista.adicionarEdicao(54, data, 1200, 1000);
 		
-		for (int i=0; i < revista.getEdicao().size(); i++) {
-			System.out.println(revista.getEdicao().get(i).getNumero());
-			System.out.println(revista.getEdicao().get(i).getData());
-			System.out.println(revista.getEdicao().get(i).getTiragem());
-			System.out.println(revista.getEdicao().get(i).getQtdeVendida());
-			System.out.println("______________________________________________");
-		}
-		
-		for (int i=0; i < 2; i++) {
-			if (revista.getEdicao().get(1).reciclarExemplares() == false) {
-				System.out.println("Revista já reciclada.");
-			} else {
-				revista.getEdicao().get(1).reciclarExemplares();
-			}	
-		}
+		realizarReciclagem(53);
+		realizarReciclagem(54);
+		realizarReciclagem(54);
+		realizarReciclagem(99);
 	}
+	
+	 public static void realizarReciclagem(int nrEdicao) {
+		System.out.println("Edicao Numero: " + nrEdicao);
+		System.out.println();
+		System.out.println(revista.reciclarEdicao(nrEdicao));
+		
+		for (Edicao edicao : revista.getEdicao()) {
+			if (edicao.getNumero() == nrEdicao) {
+				System.out.println("Reciclagem Produzida: " + revista.getReciclagemProduzida());
+				System.out.println(edicao.isReciclou());
+			}
+		}
+		System.out.println("_____________________________________________________");
+	 }
 }
